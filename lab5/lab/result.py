@@ -12,7 +12,6 @@ env.process(smo.manage_agents())
 env.process(smo.monitor())
 env.run(until=sim_time)
 
-# Анализ результатов
 average_wait_time = np.mean(smo.total_wait_time)
 average_queue_length = np.mean(smo.queue_lengths)
 average_agents = np.mean(smo.agent_counts)

@@ -8,7 +8,7 @@ from lab5.lab.param import initial_agents, lambda_requests, mu_service, agent_co
 class Bank:
     def __init__(self, env):
         self.env = env
-        self.queue = simpy.PriorityResource(env, capacity=initial_agents)  # Используем PriorityResource
+        self.queue = simpy.PriorityResource(env, capacity=initial_agents)
         self.active_agents = initial_agents
         self.total_wait_time = []
         self.queue_lengths = []
@@ -17,13 +17,13 @@ class Bank:
 
     def process_request(self):
         arrival_time = self.env.now
-        with self.queue.request(priority=1) as req:  # Добавляем приоритет (для FIFO)
+        with self.queue.request(priority=1) as req:
             result = yield req | self.env.timeout(1 / lambda_requests)
             if req in result:
                 yield self.env.timeout(1 / mu_service)
                 self.total_wait_time.append(self.env.now - arrival_time)
             else:
-                self.lost_requests += 1  # Если заявка не дождалась обработки, теряем её
+                self.lost_requests += 1
 
     def generate_requests(self):
         while True:
