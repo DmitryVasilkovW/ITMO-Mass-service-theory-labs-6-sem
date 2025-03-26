@@ -32,13 +32,20 @@ class Bank:
 
     def manage_agents(self):
         while True:
-            yield self.env.timeout(1)
+            yield self.env.timeout(10)
+            rand_agent = random.randint(1, 3)
+
             if random.random() < agent_connect_rate and self.active_agents < max_agents:
-                self.active_agents += 1
+                if rand_agent + self.active_agents > 5:
+                    rand_agent -= ((rand_agent + self.active_agents) - 5)
+                self.active_agents += rand_agent
                 self.servers = simpy.Resource(self.env, capacity=self.active_agents)
             if random.random() < agent_disconnect_rate and self.active_agents > 1:
-                self.active_agents -= 1
+                if rand_agent - self.active_agents <= 0:
+                    rand_agent = 1
+                self.active_agents -= rand_agent
                 self.servers = simpy.Resource(self.env, capacity=self.active_agents)
+
             self.agent_counts.append(self.active_agents)
 
     def monitor(self):

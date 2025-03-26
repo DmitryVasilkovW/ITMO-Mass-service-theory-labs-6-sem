@@ -20,7 +20,7 @@ loss_probability = smo.lost_requests / (len(smo.total_wait_time) + smo.lost_requ
 def print_res():
     print(f'Среднее время ожидания: {average_wait_time:.2f}')
     print(f'Средняя длина очереди: {average_queue_length:.2f}')
-    print(f'Среднее число агентов: {average_agents:.2f}')
+    print(f'Среднее число агентов: {int(average_agents)}')
     print(f'Вероятность потери заявки: {loss_probability:.2%}')
 
 
