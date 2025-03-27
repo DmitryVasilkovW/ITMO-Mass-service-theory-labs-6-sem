@@ -1,11 +1,11 @@
 import numpy as np
 from matplotlib import pyplot as plt
 
-from lab3.lab.mm1k import mm1k_metrics
+from lab3.lab.mm1k import mm1k_metrics, simulate_mm1k
 from lab3.lab.param import lambd
 
 m_values = np.arange(1, 16)
-metrics_list = [mm1k_metrics(m, lambd) for m in m_values]
+metrics_list = [simulate_mm1k(m, lambd) for m in m_values]
 
 loss_probs = [res["p_loss"] for res in metrics_list]
 waiting_times = [res["W_queue"] for res in metrics_list]
@@ -47,3 +47,6 @@ def show_plot():
 
     plt.tight_layout()
     plt.show()
+
+
+show_plot()

@@ -1,11 +1,12 @@
 import numpy as np
 from matplotlib import pyplot as plt
 
-from lab2.lab.util import calculate_metrics
+from lab2.lab.util import calculate_metrics, simulate_queue
 from lab2.lab.param import lambda_, mu_, n_channels, mu_values, n_fixed
 
 def show_lq_and_wq_plot():
-    metrics = calculate_metrics(lambda_, mu_, n_channels)
+    #metrics = calculate_metrics(lambda_, mu_, n_channels)
+    metrics = simulate_queue(lambda_, mu_, n_channels)
     print(f"Характеристики системы при n = {n_channels}:")
     for key, value in metrics.items():
         print(f"{key}: {value:.4f}")
@@ -37,7 +38,7 @@ def show_mu_plot():
     lq_mu = []
 
     for mu in mu_values:
-        m = calculate_metrics(lambda_, mu, n_fixed)
+        m = simulate_queue(lambda_, mu, n_fixed)
         if m:
             wq_mu.append(m['wq'])
             lq_mu.append(m['lq'])
@@ -54,3 +55,6 @@ def show_mu_plot():
     plt.legend()
     plt.grid(True)
     plt.show()
+
+show_mu_plot()
+show_lq_and_wq_plot()

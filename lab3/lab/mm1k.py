@@ -1,4 +1,7 @@
+import random
+
 import numpy as np
+import simpy
 
 from lab3.lab.param import rho
 
